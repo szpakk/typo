@@ -63,4 +63,10 @@ describe Admin::CategoriesController do
     assert_raise(ActiveRecord::RecordNotFound) { Category.find(test_id) }
   end
   
+  describe "GET #new" do
+    it "should render new template" do
+      get 'new'
+      expect(response).to render_template(:new)
+    end
+  end
 end
