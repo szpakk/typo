@@ -4,3 +4,12 @@
   <%= render :partial => "form" %>
 
 <% end %>
+
+<% if @article && @article.id %>
+  <div class=''>
+    <h2><%= _("Merge Articles") %></h2>
+  </div>
+  <%= form_tag(form_action, :id => "merge_with", :method => 'post') do %>
+  
+  <% end %>
+<% end %>
