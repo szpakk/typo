@@ -9,7 +9,7 @@
   <div class=''>
     <h3><%= _("Merge Articles") %></h3>
   </div>
-  <%= form_tag("/admin/content/merge_with/#{@article.id}", :id => "merge_with", :name => "merge_with", :method => 'post', :controller => 'content') do %>
+  <%= form_tag("/admin/content/merge_with/#{@article.id}", :id => "merge_with", :method => 'post', :controller => 'content') do %>
     <div>Article ID <%= text_field_tag 'merge_with' %></div>
     <%= submit_tag 'Merge' %>
   <% end %>
