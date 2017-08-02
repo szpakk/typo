@@ -23,3 +23,33 @@ Feature: Merge Articles
     And   I should not see "Title 3"
     
   Scenario: Merge articles of different authors
+    Given I am logged into the admin panel
+    Then  I should see "Total posts: 4"
+    And   I should see "Your posts: 3"
+    When  I go to the edit article 3 page
+    And   I fill in "merge_with" with "5"
+    And   I press "Merge"
+    When  I go to the dashboard page
+    Then  I should see "Total posts: 3"
+    And   I should see "Your posts: 3"
+    
+  Scenario: Contents of two articles are merged
+    Given I am logged into the admin panel
+    When  I go to the edit article 3 page
+    And   I fill in "merge_with" with "4"
+    And   I press "Merge"
+    When  I go to the home page
+    And   I follow "Title 2"
+    Then  I should see "Contents of article 2"
+    And   I should see "Contents of article 3"
+
+  Scenario: Comments of two articles are merged
+    Given I am logged into the admin panel
+    When  I go to the edit article 3 page
+    And   I fill in "merge_with" with "4"
+    And   I press "Merge"
+    When  I go to the home page
+    And   I follow "Title 2"
+    Then  I should see "Body of comment 1"
+    And   I should see "Body of comment 2"
+    And   I should see "Body of comment 3"

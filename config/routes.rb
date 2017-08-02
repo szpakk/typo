@@ -117,5 +117,5 @@ Rails.application.routes.draw do
 
   match '*from', :to => 'articles#redirect', :format => false
   
-  post "admin/content/merge_with"
+  post "admin/content/merge_with/:id", :to => 'admin/content#merge_with', :format => false, :as => 'merge_with'
 end

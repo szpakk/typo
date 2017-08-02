@@ -113,6 +113,19 @@ class Admin::ContentController < Admin::BaseController
     render :text => nil
   end
 
+  def merge_with
+    @article = Article.find(params[:id])
+    @to_be_merged = Article.find(params[:merge_with]) unless Article.where(:id => params[:merge_with]).empty?
+    unless @article && @to_be_merged
+      flash[:warning] = _("Merge unsuccessful")
+      redirect_to :action => 'edit', :id => params[:id]
+    else
+      @article.merge(@to_be_merged)
+      flash[:notice] = _("Articles successfully merged")
+      redirect_to :action => 'index'
+    end
+  end
+
   protected
 
   def get_fresh_or_existing_draft_for_article
@@ -239,9 +252,5 @@ class Admin::ContentController < Admin::BaseController
 
   def setup_resources
     @resources = Resource.by_created_at
-  end
-  
-  def merge_with
-    redirect_to '/'
   end
 end

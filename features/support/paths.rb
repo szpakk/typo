@@ -24,7 +24,10 @@ module NavigationHelpers
     #   when /^(.*)'s profile page$/i
     #     user_profile_path(User.find_by_login($1))
     when /^the edit article (\d+) page$/
-      "admin/content/edit/#{$1}"
+      "/admin/content/edit/#{$1}"
+
+    when /^the dashboard page$/
+      '/admin'
 
     else
       begin

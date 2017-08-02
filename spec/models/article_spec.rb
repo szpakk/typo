@@ -630,5 +630,31 @@ describe Article do
     end
 
   end
+  
+  describe "#merge" do
+    before(:each) do
+      @article1 = Factory(:article, :title => "Title 1", :body => "Article 1")
+      @article2 = Factory(:article, :title => "Title 2", :body => "Article 2")
+    end
+    it "adds body of one article to another" do
+      @article1.merge(@article2)
+      @article1.body.should match(/Article 1.*Article 2/m)
+    end
+    
+    it "adds comments of one article to another" do
+      @comment1 = Factory(:comment, :body => "Comment 1", :article => @article1)
+      @comment2 = Factory(:comment, :body => "Comment 2", :article => @article2)
+      @comment3 = Factory(:comment, :body => "Comment 3", :article => @article1)
+      @article1.merge(@article2)
+      @article1.comments.count.should eq(3)
+    end
+    
+    it "deletes merged article" do
+      Article.stub(:find).with(1).and_return(@article1)
+      Article.stub(:find).with(2).and_return(@article2)
+      @article1.merge(@article2)
+      Article.all.should_not include @article2
+    end
+  end
 end
 

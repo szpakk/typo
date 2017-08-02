@@ -671,4 +671,30 @@ describe Admin::ContentController do
 
     end
   end
+  
+  describe 'merge_with' do
+    before(:each)do
+      Factory(:blog)
+      @user = Factory(:user, :text_filter => Factory(:markdown), :profile => Factory(:profile_admin, :label => Profile::ADMIN))
+      @user.save
+      @article1 = Factory(:article, :id => 1)
+      @article2 = Factory(:article, :id => 2)
+      request.session = { :user => @user.id }
+    end
+    
+    it "calls model method to find article" do
+      Article.should_receive(:find).with(1).and_return(@article1)
+      Article.stub(:find).with(2)
+
+      post "merge_with", { :id => 1, :merge_with => 2 }
+    end
+    
+    it "calls merge method on instance article model" do
+      Article.stub(:find).with(1).and_return(@article1)
+      Article.stub(:find).with(2).and_return(@article2)
+      @article1.should_receive(:merge).with(@article2)
+
+      post "merge_with", { :id => 1, :merge_with => 2 }
+    end
+  end
 end
