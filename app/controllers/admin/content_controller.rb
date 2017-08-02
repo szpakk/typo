@@ -116,7 +116,7 @@ class Admin::ContentController < Admin::BaseController
   def merge_with
     @article = Article.find(params[:id])
     @to_be_merged = Article.find(params[:merge_with]) unless Article.where(:id => params[:merge_with]).empty?
-    if @article.access_by?(current_user) && @to_be_merged
+    if current_user.profile_id == 1 && @to_be_merged
       @article.merge(@to_be_merged)
       flash[:notice] = _("Articles successfully merged")
       redirect_to :action => 'index'

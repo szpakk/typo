@@ -9,7 +9,7 @@ Feature: Merge Articles
 
   Scenario: Merge articles as a blog publisher
     Given I am logged in as a publisher
-    And   I go to the edit article 1 page
+    And   I go to the edit article 5 page
     Then  I should not see "Merge Articles"
 
   Scenario: Merge articles as an admin

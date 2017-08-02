@@ -5,7 +5,7 @@
 
 <% end %>
 
-<% if @article && @article.id %>
+<% if @article && @article.id && @current_user.profile_id == 1 %>
   <div class=''>
     <h3><%= _("Merge Articles") %></h3>
   </div>
